@@ -26,3 +26,5 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+Route::get('/api/sum/{a}/{b}', [SumController::class, 'apiSum'])
+     ->name('api.sum');
