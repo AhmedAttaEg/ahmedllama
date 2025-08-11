@@ -29,7 +29,7 @@
             const a = document.getElementById('a').value;
             const b = document.getElementById('b').value;
             //const url = `http://127.0.0.1/ahmedllama/public/api/sum/${encodeURIComponent(a)}/${encodeURIComponent(b)}`;
-            const url = `../public/api/sum/${encodeURIComponent(a)}/${encodeURIComponent(b)}`;
+            const url = `../api/sum/${encodeURIComponent(a)}/${encodeURIComponent(b)}`;
 
             fetch(url)
                 .then(response => response.json())
