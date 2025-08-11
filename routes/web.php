@@ -30,3 +30,6 @@ Route::middleware([
 });
 Route::get('/api/sum/{a}/{b}', [apiController::class, 'sum'])
      ->name('api.sum');
+Route::get('/sum-page', [apiController::class, 'showForm'])
+->name('sum.page');
+

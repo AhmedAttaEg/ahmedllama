@@ -27,5 +27,10 @@ class apiController extends Controller
             'sum' => $sum
         ], 200);
     }
+    public function showForm()
+    {
+        return view('sum-form');
+    }
+
 
 }
