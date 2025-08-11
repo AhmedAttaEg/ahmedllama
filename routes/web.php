@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\apiController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -26,5 +28,5 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
-Route::get('/api/sum/{a}/{b}', [SumController::class, 'apiSum'])
+Route::get('/api/sum/{a}/{b}', [apiController::class, 'sum'])
      ->name('api.sum');
