@@ -34,7 +34,7 @@ Route::get('/api/sum/{a}/{b}', [apiController::class, 'sum'])
 Route::get('/sum-page', [apiController::class, 'showForm'])
 ->name('sum.page');
 
-Route::get('/gfolder', [pdfController::class, 'index2']);
+Route::get('/gfolder', [PdfController::class, 'index2']);
 Route::get('/check-drive-id', function () {
     $id = env('GOOGLE_DRIVE_FOLDER_ID');
     dd([
