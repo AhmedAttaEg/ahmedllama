@@ -30,5 +30,12 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'google' => [
+        'drive' => [
+            'credentials' => storage_path(env('GOOGLE_DRIVE_CREDENTIALS')),
+            //'credentials' => env('GOOGLE_DRIVE_CREDENTIALS'),
+        ],
+    ],
+
 
 ];

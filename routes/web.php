@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\apiController;
+use App\Http\Controllers\pdfController;
 
 
 /*
@@ -33,3 +34,12 @@ Route::get('/api/sum/{a}/{b}', [apiController::class, 'sum'])
 Route::get('/sum-page', [apiController::class, 'showForm'])
 ->name('sum.page');
 
+Route::get('/gfolder', [pdfController::class, 'index2']);
+Route::get('/check-drive-id', function () {
+    $id = env('GOOGLE_DRIVE_FOLDER_ID');
+    dd([
+        'raw'    => $id,
+        'length' => strlen($id),
+        'endsWithDot' => Str::endsWith($id, '.'),
+    ]);
+});
