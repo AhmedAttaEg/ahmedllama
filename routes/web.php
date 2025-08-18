@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\apiController;
-use App\Http\Controllers\pdfController;
+use App\Http\Controllers\PdfController;
 
 
 /*
