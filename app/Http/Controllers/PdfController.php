@@ -5,26 +5,25 @@ use App\Services\GoogleDriveService;
 use Illuminate\Http\Request;
 use Google_Client;
 use Google_Service_Drive;
+use Google_Service_Drive_DriveFileList;
 use Exception;
 
 
 class PdfController extends Controller
 {
-     public function index(GoogleDriveService $drive)
-    {
+     public function index1(GoogleDriveService $drive){
         $folderId = env('GOOGLE_DRIVE_FOLDER_ID');
         $pdfNames = $drive->listPdfFileNames($folderId);
 
         return view('pdfs.index', compact('pdfNames'));
     } 
-   public function index2()
-    {
+   public function index2(){
         try {
             // Initialize the client
             $client = new Google_Client();
             $client->setAuthConfig(config('services.google.drive.credentials'));
             $client->addScope(Google_Service_Drive::DRIVE_METADATA_READONLY);
-
+            $client->addScope(Google_Service_Drive::DRIVE_READONLY);
             // Create the Drive service
             $drive = new Google_Service_Drive($client);
 
@@ -36,20 +35,27 @@ class PdfController extends Controller
             // List just the IDs of items in that folder
             $response = $drive->files->listFiles([
                 'q'        => "'{$folderId}' in parents and trashed = false",
-                'fields'   => 'nextPageToken, files(id)',
-                'pageSize' => 1000,  // bump up if you might have more than 100
+                'fields'   => 'nextPageToken, files(id, name)',
+                'pageSize' => 100,  // bump up if you might have more than 100
             ]);
 
             // Count how many file objects you got back
-            $fileCount = count($response->getFiles());
+            $files = $response->getFiles();
+            //$fileCount = count($response->getFiles());
+            $fileCount = count($files);
+            // Extract file names
+            $fileNames = array_map(function($file) {
+                return $file->getName();
+            }, $files);
 
             $status = "Connected! Folder name: {$folder->getName()} (ID: {$folder->getId()})";
         } catch (Exception $e) {
             $status = "Connection failed: " . $e->getMessage();
             $fileCount =0;
+            $fileNames = [];
         }
 
-        return view('pdfs.index', compact('status','fileCount'));
+        return view('pdfs.index', compact('status','fileCount', 'fileNames'));
     }
 
 }
